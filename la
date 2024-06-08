@@ -1,0 +1,1594 @@
+index.html
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestão de Clientes</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" media="screen,projection"/>
+  <!-- Materialize JS -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+  <script src="javascript/script.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/inputmask/5.0.6/jquery.inputmask.min.js"></script>
+ 
+  
+  <style>
+/* estilo para titulo */
+
+.card-custom {
+      padding: 10px;
+    }
+    #cliente_label {
+      background-color: #d0ecea;
+      padding: 10px;
+      border-radius: 5px;
+    }
+    .search-card {
+      background-color: #9fd6d2;
+      padding: 10px;
+      border-radius: 5px;
+    }
+    
+      .social-title {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    color: #195e63; /* Verde claro */
+    position: relative;
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 20px 0 20px 10px; /* Margem esquerda reduzida para 10px */
+    background: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+        .social-title .material-icons {
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+/* estilo para caixa textos */
+    .input-field input {
+      max-width: 100px;
+    }
+   
+  .input-field input {
+    max-width: 200px; /* Ajuste este valor conforme necessário */
+    padding: 5px; /* Ajuste o padding conforme necessário */
+  }
+  .card-panel {
+    padding: 15px; /* Ajuste o padding do card panel */
+  }
+
+    .tabs .indicator {
+      background-color: #64b5f6;
+    }
+    .tab a {
+      color: #2196f3;
+    }
+    .tab a:hover {
+      background-color: #e3f2fd;
+    }
+    .tab a.active {
+      background-color: #bbdefb;
+      color: #0d47a1;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed; /* Use fixed table layout for equal column widths */
+    }
+    th, td {
+      text-align: left;
+      padding: 8px;
+      white-space: nowrap;
+      border: 1px solid #ddd; /* Add light gray border */
+    }
+    th {
+      background-color: #f2f2f2;
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+    td {
+      border-bottom: 1px solid #ddd;
+    }
+    table.responsive-table {
+      display: block;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+    tr:hover {
+      background-color: #d4edda; /* Light green highlight on row hover */
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+        <h4 class="social-title"><i class="material-icons">account_circle</i>Larissa Kraskin</h4>
+        <div class="row">
+            <div class="col s12">
+        <ul class="tabs">
+          <li class="tab col s4"><a href="#gestaoClientes">Gestão de Clientes</a></li>
+          <li class="tab col s4"><a href="#listarclientes">Lista Clientes</a></li>
+          <li class="tab col s4"><a href="#grafico">Gráfico</a></li>
+        </ul>
+      </div>
+        </div>
+          </div>
+      <div id="gestaoClientes" class="col s12">
+        <form id="formCliente">
+          <div class="row">
+            <div class="col s4">
+              <div class="card-panel">
+                <div class="input-field">
+                  <input id="id" type="text" disabled>
+                  <label for="id"></label>
+                </div>
+                <div class="input-field">
+                  <input id="nome" type="text" required>
+                  <label for="nome">Nome</label>
+                </div>
+                <div class="input-field">
+                  <input id="telefone" type="text">
+                  <label for="telefone">Telefone</label>
+                </div>
+                <div class="input-field">
+                  <input id="idade" type="number" min="0" required>
+                  <label for="idade">Idade</label>
+                </div>
+              </div>
+            </div>
+            <div class="col s4">
+              <div class="card-panel">
+                <div class="input-field">
+                  <select id="sexo">
+                    <option value="" disabled selected>Escolha o sexo</option>
+                    <option value="Masculino">Masculino</option>
+                    <option value="Feminino">Feminino</option>
+                  </select>
+                  <label for="sexo">Sexo</label>
+                </div>
+                <div class="input-field">
+                  <input id="data_primeiro_atendimento" type="text" class="datepicker">
+                  <label for="data_primeiro_atendimento">Data do Primeiro Atendimento</label>
+                </div>
+                <div class="input-field">
+                  <input id="endereco" type="text">
+                  <label for="endereco">Endereço</label>
+                </div>
+                <div class="input-field">
+                  <input id="instagram" type="text">
+                  <label for="instagram">Instagram</label>
+                </div>
+              </div>
+            </div>
+            <div class="col s4">
+              <div class="card-panel">
+                <div class="input-field">
+                  <select id="cartela_cores">
+                    <option value="" disabled selected>Escolha a cartela de cores</option>
+                    <option value="Verão claro">Verão claro</option>
+                    <option value="Verão suave">Verão suave</option>
+                    <option value="Verão frio">Verão frio</option>
+                    <option value="Primavera clara">Primavera clara</option>
+                    <option value="Primavera quente">Primavera quente</option>
+                    <option value="Primavera brilhante">Primavera brilhante</option>
+                    <option value="Outono escuro">Outono escuro</option>
+                    <option value="Outono quente">Outono quente</option>
+                    <option value="Outono suave">Outono suave</option>
+                    <option value="Inverno frio">Inverno frio</option>
+                    <option value="Inverno escuro">Inverno escuro</option>
+                    <option value="Inverno brilhante">Inverno brilhante</option>
+                  </select>
+                  <label for="cartela_cores">Cartela de Cores</label>
+                </div>
+                <div class="input-field">
+                  <select id="estilo1">
+                    <option value="" disabled selected>Escolha o estilo 1</option>
+                    <option value="Clássico">Clássico</option>
+                    <option value="Casual">Casual</option>
+                    <option value="Elegante">Elegante</option>
+                    <option value="Romântico">Romântico</option>
+                    <option value="Sensual">Sensual</option>
+                    <option value="Dramático">Dramático</option>
+                    <option value="Criativo">Criativo</option>
+                  </select>
+                  <label for="estilo1">Estilo 1</label>
+                </div>
+                <div class="input-field">
+                  <select id="estilo2">
+                    <option value="" disabled selected>Escolha o estilo 2</option>
+                    <option value="Clássico">Clássico</option>
+                    <option value="Casual">Casual</option>
+                    <option value="Elegante">Elegante</option>
+                    <option value="Romântico">Romântico</option>
+                    <option value="Sensual">Sensual</option>
+                    <option value="Dramático">Dramático</option>
+                    <option value="Criativo">Criativo</option>
+                  </select>
+                  <label for="estilo2">Estilo 2</label>
+                </div>
+                <div class="input-field">
+                  <select id="estilo3">
+                    <option value="" disabled selected>Escolha o estilo 3</option>
+                    <option value="Clássico">Clássico</option>
+                    <option value="Casual">Casual</option>
+                    <option value="Elegante">Elegante</option>
+                    <option value="Romântico">Romântico</option>
+                    <option value="Sensual">Sensual</option>
+                    <option value="Dramático">Dramático</option>
+                    <option value="Criativo">Criativo</option>
+                  </select>
+                  <label for="estilo3">Estilo 3</label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Grupo 1: Campos 13 a 16 -->
+          <div class="row">
+            <div class="col s12 m4">
+              <div class="card-panel">
+                <!-- Campo 13: Biotipo -->
+                <span class="black-text">Biotipo:</span>
+                <select class="browser-default" id="biotipo" name="biotipo">
+                  <option value="" disabled selected>Selecione</option>
+                  <option value="Ampulheta">Ampulheta</option>
+                  <option value="Triângulo invertido">Triângulo invertido</option>
+                  <option value="Triângulo">Triângulo</option>
+                  <option value="Oval">Oval</option>
+                  <option value="Retângulo">Retângulo</option>
+                </select>
+              </div>
+            </div>
+            
+            <!-- Campo 14: Formato de rosto -->
+            <div class="col s12 m4">
+              <div class="card-panel">
+                <span class="black-text">Formato de rosto:</span>
+                <select class="browser-default" id="formato_rosto" name="formato_rosto">
+                  <option value="" disabled selected>Selecione</option>
+                  <option value="Redondo">Redondo</option>
+                  <option value="Oval">Oval</option>
+                  <option value="Retangular">Retangular</option>
+                  <option value="Quadrado">Quadrado</option>
+                  <option value="Triangular invertido">Triangular invertido</option>
+                  <option value="Losango">Losango</option>
+                  <option value="Triangular">Triangular</option>
+                  <option value="Hezagonal">Hezagonal</option>
+                  <option value="Hezagonal de lateral reta">Hezagonal de lateral reta</option>
+                  <option value="Hezagonal de base reta">Hezagonal de base reta</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Campo 15: Altura -->
+            <div class="col s12 m4">
+              <div class="card-panel">
+                <span class="black-text">Altura:</span>
+                <input type="text" id="altura" name="altura" placeholder="Altura (cm)">
+              </div>
+            </div>
+          </div>
+
+          <!-- Grupo 2: Campos 17 a 20 -->
+          <div class="row">
+            <div class="col s12 m4">
+              <div class="card-panel">
+                <!-- Campo 16: Peso -->
+                <span class="black-text">Peso:</span>
+                <div class="input-field">
+                  <input type="text" id="peso" name="peso" placeholder="Peso (kg)" class="medida_corporal">
+                </div>
+              </div>
+            </div>
+            <div class="col s12 m4">
+              <div class="card-panel">
+                <!-- Campo 17: Calçado -->
+                <span class="black-text">Calçado:</span>
+                <div class="input-field">
+                  <input type="text" id="calcado" name="calcado" placeholder="Calçado">
+                </div>
+              </div>
+            </div>
+            <div class="col s12 m4">
+              <div class="card-panel">
+                <!-- Campo 18: Medida ombro -->
+                <span class="black-text">Medida ombro:</span>
+                <div class="input-field">
+                  <input type="text" id="medida_ombro" name="medida_ombro" placeholder="Medida ombro (cm)" class="medida_corporal">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Grupo 3: Campos 21 a 24 -->
+          <div class="row">
+            <div class="col s12 m4">
+              <div class="card-panel">
+                <!-- Campo 19: Medida cintura -->
+                <span class="black-text">Medida cintura:</span>
+                <div class="input-field">
+                  <input type="text" id="medida_cintura" name="medida_cintura" placeholder="Medida cintura (cm)" class="medida_corporal">
+                </div>
+              </div>
+            </div>
+            <div class="col s12 m4">
+              <div class="card-panel">
+                <!-- Campo 20: Medida quadril -->
+                <span class="black-text">Medida quadril:</span>
+                <div class="input-field">
+                  <input type="text" id="medida_quadril" name="medida_quadril" placeholder="Medida quadril (cm)" class="medida_corporal">
+                </div>
+              </div>
+            </div>
+            <div class="col s12 m4">
+              <div class="card-panel">
+                <!-- Campo 21: Medida rosto -->
+                <span class="black-text">Medida rosto:</span>
+                <div class="input-field">
+                  <input type="text" id="medida_rosto" name="medida_rosto" placeholder="Medida rosto (cm)">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Grupo 4: Campos 25 a 28 -->
+          <div class="row">
+            <div class="col s12 m4">
+              <div class="card-panel">
+                <!-- Campo 22: Medida de tronco -->
+                <span class="black-text">Medida de tronco:</span>
+                <div class="input-field">
+                  <input type="text" id="medida_tronco" name="medida_tronco" placeholder="Medida de tronco (cm)" class="medida_corporal">
+                </div>
+              </div>
+            </div>
+            <div class="col s12 m4">
+              <div class="card-panel">
+                <!-- Campo 23: Medida de perna -->
+                <span class="black-text">Medida de perna:</span>
+                <div class="input-field">
+                  <input type="text" id="medida_perna" name="medida_perna" placeholder="Medida de perna (cm)" class="medida_corporal">
+                </div>
+              </div>
+            </div>
+            <div class="col s12 m4">
+              <div class="card-panel">
+                <!-- Campo 24: Pescoço -->
+                <span class="black-text">Pescoço:</span>
+                <div class="input-field">
+                  <select class="browser-default" id="pescoço" name="pescoço">
+                    <option value="" disabled selected>Selecione</option>
+                    <option value="Curto">Curto</option>
+                    <option value="Longo">Longo</option>
+                    <option value="Normal">Normal</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Grupo 5: Campos 25 a 28 -->
+          <div class="row">
+            <div class="col s12 m4">
+              <div class="card-panel">
+                <!-- Campo 25: Busto -->
+                <span class="black-text">Busto:</span>
+                <select class="browser-default" id="busto" name="busto">
+                  <option value="" disabled selected>Selecione</option>
+                  <option value="Pequeno">Pequeno</option>
+                  <option value="Médio">Médio</option>
+                  <option value="Grande">Grande</option>
+                </select>
+              </div>
+            </div>
+            <div class="col s12 m4">
+              <div class="card-panel">
+                <!-- Campo 26: Ombros -->
+                <span class="black-text">Ombros:</span>
+                <select class="browser-default" id="ombros" name="ombros">
+                  <option value="" disabled selected>Selecione</option>
+                  <option value="Estreitos">Estreitos</option>
+                  <option value="Inclinados">Inclinados</option>
+                  <option value="Largos">Largos</option>
+                  <option value="Retos">Retos</option>
+                </select>
+              </div>
+            </div>
+            <div class="col s12 m4">
+              <div class="card-panel">
+                <!-- Campo 27: Peso visual -->
+                <span class="black-text">Peso visual:</span>
+                <select class="browser-default" id="peso_visual" name="peso_visual">
+                  <option value="" disabled selected>Selecione</option>
+                  <option value="Busto">Busto</option>
+                  <option value="Braço">Braço</option>
+                  <option value="Quadril">Quadril</option>
+                  <option value="Coxa">Coxa</option>
+                  <option value="Barriga">Barriga</option>
+                  <option value="Bumbum">Bumbum</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+
+<div class="container">
+    <div class="row">
+      <div class="col s3">
+        <div class="card-panel">
+        <div class="input-field">
+          <input type="number" id="academia" min="0" max="10" placeholder="0-10">
+          <label for="academia">Academia</label>
+        </div>
+        <div class="input-field">
+          <input type="number" id="trabalho_formal" min="0" max="10" placeholder="0-10">
+          <label for="trabalho_formal">Trabalho Formal</label>
+        </div>
+        <div class="input-field">
+          <input type="number" id="trabalho_informal" min="0" max="10" placeholder="0-10">
+          <label for="trabalho_informal">Trabalho Informal</label>
+        </div>
+        <div class="input-field">
+          <input type="number" id="home_office" min="0" max="10" placeholder="0-10">
+          <label for="home_office">Home Office</label>
+        </div>
+        <div class="input-field">
+          <input type="number" id="almoco_familia" min="0" max="10" placeholder="0-10">
+          <label for="almoco_familia">Almoço Família</label>
+        </div>
+        <div class="input-field">
+          <input type="number" id="viagem" min="0" max="10" placeholder="0-10">
+          <label for="viagem">Viagem</label>
+        </div>
+        <div class="input-field">
+          <input type="number" id="balada" min="0" max="10" placeholder="0-10">
+          <label for="balada">Balada</label>
+        </div>
+        <div class="input-field">
+          <input type="number" id="sair_pra_jantar" min="0" max="10" placeholder="0-10">
+          <label for="sair_pra_jantar">Sair pra Jantar</label>
+        </div>
+        <div class="input-field">
+          <input type="number" id="eventos_corporativos" min="0" max="10" placeholder="0-10">
+          <label for="eventos_corporativos">Eventos Corporativos</label>
+        </div>
+        <div class="input-field">
+          <input type="number" id="praia_clube" min="0" max="10" placeholder="0-10">
+          <label for="praia_clube">Praia/Clube</label>
+    </div>
+    </div>
+  </div>
+</div>
+</div>
+
+          <!-- Grupo 6: Campos 28 a 31 -->
+          <!-- Campo 28: Serviço -->
+          <div class="row">
+            <div class="col s12 m4">
+              <div class="card-panel">
+                <span class="black-text">Serviço:</span>
+                <select class="browser-default" id="servico" name="servico">
+                  <option value="" disabled selected>Selecione</option>
+                  <option value="Consultoria completa feminina">Consultoria completa feminina</option>
+                  <option value="Consultoria completa masculina">Consultoria completa masculina</option>
+                  <option value="Estratégia de imagem">Estratégia de imagem</option>
+                  <option value="Coloração pessoal">Coloração pessoal</option>
+                  <option value="Detox de closet">Detox de closet</option>
+                  <option value="Personal shopper">Personal shopper</option>
+                  <option value="Montagem de looks">Montagem de looks</option>
+                  <option value="Mala de viagem">Mala de viagem</option>
+                  <option value="Pacote 2 (estratégia + coloração)">Pacote 2 (estratégia + coloração)</option>
+                  <option value="Pacote 3 (estratégia + personal shopper)">Pacote 3 (estratégia + personal shopper)</option>
+                  <option value="Pacote 4 (detox + montagem de looks)">Pacote 4 (detox + montagem de looks)</option>
+                  <option value="Consultoria sempre presente (plano mensal)">Consultoria sempre presente (plano mensal)</option>
+                </select>
+              </div>
+            </div>
+
+               <!-- Campo 29: Valor -->
+            <div class="col s12 m4">
+            <div class="card-panel">
+        <span class="black-text">Valor:</span>
+        <input id="valor" type="text" name="valor" placeholder="R$" onKeyPress="return(moeda(this,'.',',',event))"> 
+    </div>
+</div>
+                    <!-- Campo 30: Forma de pagamento -->
+            <div class="col s12 m4">
+              <div class="card-panel">
+                <span class="black-text">Forma de pagamento:</span>
+                <select class="browser-default" id="forma_pagamento" name="forma_pagamento">
+                  <option value="" disabled selected>Selecione</option>
+                  <option value="PIX">PIX</option>
+                  <option value="Débito">Débito</option>
+                  <option value="Crédito 1 a 10x">Crédito 1 a 10x</option>
+                  <option value="Dinheiro">Dinheiro</option>
+                </select>
+                </div>
+                </div>
+                
+  <!-- Campo 31: Data de pagamento -->
+  <div class="col s4 m4">
+              <div class="card-panel">
+          <div class="input-field">
+                  <input id="data_pagamento" type="text" class="datepicker">
+                  <label for="data_pagamento">Data de pagamento</label>
+                </div>
+                </div>
+                </div>  
+                </div>
+
+          <div class="row">
+            <div class="col s12">
+              <div class="card-panel">
+                <div class="input-field">
+                  <textarea id="observacoes" class="materialize-textarea" data-length="300"></textarea>
+                  <label for="observacoes">Observações Gerais</label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Botão de Salvar -->
+          <div class="row">
+            <div class="col s12">
+              <button class="btn waves-effect waves-light" type="button" onclick="salvarDados()">Salvar</button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+
+       <div id="listarclientes" class="col s12">
+    <div class="input-field col s6">
+        <div id="form">
+            <!-- Input fields para pesquisa -->
+            <div class="col s4 m-3">
+                <div class="card-panel" style="background-color: #d0ecea;">
+                    <div class="input-field">
+                        <input id="Busca" type="text">
+                        <label for="Busca">Pesquisar Cliente</label>
+                    </div>
+                    <div class="input-field">
+                        <input id="Vendedor" type="text">
+                        <label for="Vendedor">Pesquisar Telefone</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Botão para exportar para Excel -->
+    <button id="btn1" class="waves-effect waves-light btn-small">
+        <i class="material-icons left">cloud_download</i>Exportar Excel
+    </button>
+
+    <!-- Tabela para exibir os clientes -->
+    <div id="divTabela">
+        <br><br>
+        <table id="Tab" class="responsive-table">
+            <thead>
+                <!-- Cabeçalho da tabela -->
+                <tr>
+                    <th class="Titulo">Nome</th>
+                    <th class="Titulo">Telefone</th>
+                    <th class="Titulo">Telefone</th>
+                    <th class="Titulo">Telefone</th>
+                    <th class="Titulo">Telefone</th>
+                    <th class="Titulo">Telefone</th>
+                    <th class="Titulo">Telefone</th>
+                    <th class="Titulo">Telefone</th>
+                    <th class="Titulo">Telefone</th>
+                    <th class="Titulo">Telefone</th>
+                    <th class="Titulo">Telefone</th>
+                    <th class="Titulo">Telefone</th>
+                    <th class="Titulo">Telefone</th>
+                    <th class="Titulo">Telefone</th>
+                    <th class="Titulo">Telefone</th>
+                    <th class="Titulo">Telefone</th>
+                    <th class="Titulo">Telefone</th>
+                    <th class="Titulo">Telefone</th>
+                    <th class="Titulo">Telefone</th>
+                    <th class="Titulo">Telefone</th>
+                    <th class="Titulo">Telefone</th>
+                    <th class="Titulo">Telefone</th>
+                    <th class="Titulo">Telefone</th>
+                    <th class="Titulo">Telefone</th>
+                    <th class="Titulo">Telefone</th>
+                    <th class="Titulo">Telefone</th>
+                    <th class="Titulo">Telefone</th>
+                    <th class="Titulo">Telefone</th>
+                    <th class="Titulo">Telefone</th>
+                    <th class="Titulo">Telefone</th>
+                    <th class="Titulo">Telefone</th>
+                    <th class="Titulo">Telefone</th>
+                    <th class="Titulo">Telefone</th>
+                    <th class="Titulo">Telefone</th>
+                    <th class="Titulo">Telefone</th>
+                    <th class="Titulo">Telefone</th>
+                    <th class="Titulo">Telefone</th>
+                    <th class="Titulo">Telefone</th>
+                    <th class="Titulo">Telefone</th>
+                    <th class="Titulo">Telefone</th>
+                    <th class="Titulo">Telefone</th>
+                    <!-- Adicione mais colunas conforme necessário -->
+                    <th class="Titulo">Ações</th> <!-- Coluna para ações -->
+                </tr>
+            </thead>
+            <tbody id="CorpoTabela">
+                <!-- Corpo da tabela será preenchido dinamicamente -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Modal para editar cliente -->
+    <div id="modalEditarCliente" class="modal">
+        <div class="modal-content">
+            <!-- Formulário para editar cliente será preenchido dinamicamente -->
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Fechar</a>
+            <button id="btnSalvarEdicao" class="waves-effect waves-green btn">Salvar</button>
+        </div>
+    </div>
+</div>
+
+      <div id="grafico" class="col s12">
+         <div class="container">
+    <div class="row">
+      <!-- Coluna Esquerda -->
+      <div class="col s6">
+        <div class="card-panel card-custom">
+          <h5 id="cliente_label" class="center-align">Cliente:</h5>
+        </div>
+        <div class="card-panel card-custom search-card">
+          <div class="input-field">
+            <input type="text" id="search_nome" placeholder="Pesquisar Nome do Cliente">
+            <label for="search_nome">Pesquisar Nome do Cliente</label>
+          </div>
+          <button id="search_cliente" class="btn">Buscar Cliente</button>
+        </div>
+      </div>
+      <!-- Coluna Direita -->
+      <div class="col s6">
+        <div class="card-panel card-custom">
+          <canvas id="pieChart" width="300" height="300"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+    <!-- Coluna 2: Gráfico -->
+    
+    
+     
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+ <!-- Inclua a referência ao Materialize JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <!-- Inclua seus scripts customizados -->
+  
+
+  <script>
+    $(document).ready(function(){
+      $("#btn1").click(function(e){
+        e.preventDefault();
+        var DivTabela = document.getElementById('divTabela');
+        var Dados = new Blob(['\ufeff' + DivTabela.outerHTML], {type:'application/vnd.ms-excel'});
+        var url = window.URL.createObjectURL(Dados);
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = 'Dados Pedidos';
+        a.click();
+      });
+    });
+  </script>
+
+
+  <script> /* Inicializa todos os componentes do Materialize */
+    document.addEventListener('DOMContentLoaded', function() {
+      M.AutoInit();
+      console.log('Materialize initialized.');
+      // Configura a formatação da data
+      var elems = document.querySelectorAll('.datepicker');
+      var instances = M.Datepicker.init(elems, {
+        format: 'dd/mm/yyyy',
+        i18n: {
+          cancel: 'Cancelar',
+          clear: 'Limpar',
+          done: 'Pronto',
+          months: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+          monthsShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+          weekdays: ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'],
+          weekdaysShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
+          weekdaysAbbrev: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S']
+        }
+      });
+      console.log('Datepicker initialized.');
+      // Máscara de telefone
+      $('#telefone').on('input', function() {
+        this.value = this.value.replace(/\D/g, '')
+          .replace(/^(\d{2})(\d)/g, '($1) $2')
+          .replace(/(\d)(\d{4})$/, '$1-$2');
+      });
+      // Máscaras para outros campos
+
+      // Gerador de ID automático
+      function gerarId() {
+        return new Date().getTime().toString(); // Simples gerador de ID baseado no timestamp
+      }
+      // Preenche o campo de ID
+      document.getElementById('id').value = gerarId();
+      console.log('ID generated:', document.getElementById('id').value);
+    });
+    </script>
+
+    <script>
+    // Função para salvar dados
+function salvarDados() {
+  // Validação de campos obrigatórios
+  var nome = document.getElementById('nome').value;
+  var idade = document.getElementById('idade').value;
+  var sexo = document.getElementById('sexo').value;
+  if (!nome || !idade || !sexo) {
+    alert('Por favor, preencha todos os campos obrigatórios.');
+    return;
+  }
+  // Coletar dados do formulário
+  var dados = {
+  id: document.getElementById('id').value,
+  nome: document.getElementById('nome').value, // Alterado para usar getElementById('nome')
+  telefone: document.getElementById('telefone').value,
+  idade: document.getElementById('idade').value, // Alterado para usar getElementById('idade')
+  sexo: document.getElementById('sexo').value, // Alterado para usar getElementById('sexo')
+  data_primeiro_atendimento: document.getElementById('data_primeiro_atendimento').value,
+  endereco: document.getElementById('endereco').value,
+  instagram: document.getElementById('instagram').value,
+  cartela_cores: document.getElementById('cartela_cores').value,
+  estilo1: document.getElementById('estilo1').value,
+  estilo2: document.getElementById('estilo2').value,
+  estilo3: document.getElementById('estilo3').value,
+  biotipo: document.getElementById('biotipo').value,
+  formato_rosto: document.getElementById('formato_rosto').value,
+  altura: document.getElementById('altura').value,
+  peso: document.getElementById('peso').value,
+  calcado: document.getElementById('calcado').value,
+  medida_ombro: document.getElementById('medida_ombro').value,
+  medida_cintura: document.getElementById('medida_cintura').value,
+  medida_quadril: document.getElementById('medida_quadril').value,
+  medida_rosto: document.getElementById('medida_rosto').value,
+  medida_tronco: document.getElementById('medida_tronco').value,
+  medida_perna: document.getElementById('medida_perna').value,
+  pescoço: document.getElementById('pescoço').value, // Alterado para usar getElementById('pescoço')
+  busto: document.getElementById('busto').value,
+  ombros: document.getElementById('ombros').value,
+  peso_visual: document.getElementById('peso_visual').value,
+  servico: document.getElementById('servico').value,
+  valor: document.getElementById('valor').value,
+  forma_pagamento: document.getElementById('forma_pagamento').value,
+  data_pagamento: document.getElementById('data_pagamento').value,
+  observacoes: document.getElementById('observacoes').value,
+  academia: document.getElementById('academia').value,
+  trabalho_formal: document.getElementById('trabalho_formal').value,
+  trabalho_informal: document.getElementById('trabalho_informal').value,
+  home_office: document.getElementById('home_office').value,
+  almoco_familia: document.getElementById('almoco_familia').value,
+  viagem: document.getElementById('viagem').value,
+  balada: document.getElementById('balada').value,
+  sair_pra_jantar: document.getElementById('sair_pra_jantar').value,
+  eventos_corporativos: document.getElementById('eventos_corporativos').value,
+  praia_clube: document.getElementById('praia_clube').value
+};
+
+
+    // Adicione os outros campos conforme necessário
+  };
+  console.log('Dados coletados:', dados);
+  // Enviar dados ao servidor
+  google.script.run
+    .withSuccessHandler(function() {
+      alert('Dados salvos com sucesso!');
+      document.getElementById('formCliente').reset();
+      document.getElementById('id').value = gerarId();
+      // Após salvar, atualiza a tabela de clientes
+      listarClientes();
+    })
+    .withFailureHandler(function() {
+      alert('Erro ao salvar dados.');
+    })
+    .salvarDados(dados);
+}
+
+</script>
+
+  <script>/* Função para carregar e listar clientes na tabela */
+   
+    function listarClientes() {
+      var clientes = JSON.parse(localStorage.getItem('clientes')) || [];
+      var tabela = document.getElementById('tabelaClientes').getElementsByTagName('tbody')[1];
+      tabela.innerHTML = ''; // Limpar tabela
+      
+      clientes.forEach(function(cliente) {
+        var linha = tabela.insertRow();
+        linha.insertCell(1).textContent = cliente.nome;
+        linha.insertCell(2).textContent = cliente.telefone;
+        linha.insertCell(3).textContent = cliente.idade;
+        linha.insertCell(4).textContent = cliente.sexo;
+        linha.insertCell(5).textContent = cliente.data_primeiro_atendimento;
+        linha.insertCell(6).textContent = cliente.endereco;
+        linha.insertCell(7).textContent = cliente.instagram;
+        linha.insertCell(8).textContent = cliente.cartela_cores;
+        linha.insertCell(9).textContent = cliente.estilo1;
+        linha.insertCell(10).textContent = cliente.estilo2;
+        linha.insertCell(11).textContent = cliente.estilo3;
+        linha.insertCell(12).textContent = cliente.biotipo;
+        linha.insertCell(13).textContent = cliente.formato_rosto;
+        linha.insertCell(14).textContent = cliente.altura;
+        linha.insertCell(15).textContent = cliente.peso;
+        linha.insertCell(16).textContent = cliente.calcado;
+        linha.insertCell(17).textContent = cliente.medida_ombro;
+        linha.insertCell(18).textContent = cliente.medida_cintura;
+        linha.insertCell(19).textContent = cliente.medida_quadril;
+        linha.insertCell(20).textContent = cliente.medida_rosto;
+        linha.insertCell(21).textContent = cliente.medida_tronco;
+        linha.insertCell(22).textContent = cliente.medida_perna;
+        linha.insertCell(23).textContent = cliente.pescoço;
+        linha.insertCell(24).textContent = cliente.busto;
+        linha.insertCell(25).textContent = cliente.ombros;
+        linha.insertCell(26).textContent = cliente.peso_visual;
+        linha.insertCell(27).textContent = cliente.servico;
+        linha.insertCell(28).textContent = cliente.valor;
+        linha.insertCell(29).textContent = cliente.forma_pagamento;
+        linha.insertCell(30).textContent = cliente.data_pagamento;
+        linha.insertCell(31).textContent = cliente.observacoes;
+        linha.insertCell(32).textContent = cliente.academia;
+        linha.insertCell(33).textContent = cliente.trabalho_formal;
+        linha.insertCell(34).textContent = cliente.trabalho_informal;
+        linha.insertCell(35).textContent = cliente.home_office;
+        linha.insertCell(36).textContent = cliente.almoco_familia;
+        linha.insertCell(37).textContent = cliente.viagem;
+        linha.insertCell(38).textContent = cliente.balada;
+        linha.insertCell(39).textContent = cliente.sair_pra_jantar;
+        linha.insertCell(40).textContent = cliente.eventos_corporativos;
+        linha.insertCell(41).textContent = cliente.praia_clube;
+      });
+        
+    }
+    
+    // Função de pesquisa
+    document.getElementById('pesquisar').addEventListener('click', function() {
+      var termoPesquisa = document.getElementById('termoPesquisa').value.toLowerCase();
+      var clientes = JSON.parse(localStorage.getItem('clientes')) || [];
+      var tabela = document.getElementById('tabelaClientes').getElementsByTagName('tbody')[1];
+      tabela.innerHTML = ''; // Limpar tabela
+      
+      clientes.forEach(function(cliente) {
+        if (cliente.nome.toLowerCase().includes(termoPesquisa)) {
+          var linha = tabela.insertRow();
+        linha.insertCell(1).textContent = cliente.nome;
+        linha.insertCell(2).textContent = cliente.telefone;
+        linha.insertCell(3).textContent = cliente.idade;
+        linha.insertCell(4).textContent = cliente.sexo;
+        linha.insertCell(5).textContent = cliente.data_primeiro_atendimento;
+        linha.insertCell(6).textContent = cliente.endereco;
+        linha.insertCell(7).textContent = cliente.instagram;
+        linha.insertCell(8).textContent = cliente.cartela_cores;
+        linha.insertCell(9).textContent = cliente.estilo1;
+        linha.insertCell(10).textContent = cliente.estilo2;
+        linha.insertCell(11).textContent = cliente.estilo3;
+        linha.insertCell(12).textContent = cliente.biotipo;
+        linha.insertCell(13).textContent = cliente.formato_rosto;
+        linha.insertCell(14).textContent = cliente.altura;
+        linha.insertCell(15).textContent = cliente.peso;
+        linha.insertCell(16).textContent = cliente.calcado;
+        linha.insertCell(17).textContent = cliente.medida_ombro;
+        linha.insertCell(18).textContent = cliente.medida_cintura;
+        linha.insertCell(19).textContent = cliente.medida_quadril;
+        linha.insertCell(20).textContent = cliente.medida_rosto;
+        linha.insertCell(21).textContent = cliente.medida_tronco;
+        linha.insertCell(22).textContent = cliente.medida_perna;
+        linha.insertCell(23).textContent = cliente.pescoco;
+        linha.insertCell(24).textContent = cliente.busto;
+        linha.insertCell(25).textContent = cliente.ombros;
+        linha.insertCell(26).textContent = cliente.peso_visual;
+        linha.insertCell(27).textContent = cliente.servico;
+        linha.insertCell(28).textContent = cliente.valor;
+        linha.insertCell(29).textContent = cliente.forma_pagamento;
+        linha.insertCell(30).textContent = cliente.data_pagamento;
+        linha.insertCell(31).textContent = cliente.observacoes;
+        linha.insertCell(32).textContent = cliente.academia;
+        linha.insertCell(33).textContent = cliente.trabalho_formal;
+        linha.insertCell(34).textContent = cliente.trabalho_informal;
+        linha.insertCell(35).textContent = cliente.home_office;
+        linha.insertCell(36).textContent = cliente.almoco_familia;
+        linha.insertCell(37).textContent = cliente.viagem;
+        linha.insertCell(38).textContent = cliente.balada;
+        linha.insertCell(39).textContent = cliente.sair_pra_jantar;
+        linha.insertCell(40).textContent = cliente.eventos_corporativos;
+        linha.insertCell(41).textContent = cliente.praia_clube;
+        }
+      });
+    });
+
+    // Carregar clientes ao iniciar
+    document.addEventListener('DOMContentLoaded', listarClientes);
+
+  
+  </script>
+    
+  <script> // carregar dados para a tabela na aba listarclientes
+
+document.addEventListener("DOMContentLoaded", Tabela);
+
+function Tabela(){
+
+google.script.run.withSuccessHandler(GerarTabela).DadosTabela();
+
+}
+
+
+function GerarTabela(Carregar){
+
+var CorpoTabela = document.getElementById("CorpoTabela");
+
+Carregar.forEach(function(r){
+
+var Linha = document.createElement("tr");
+
+
+var Coluna1 = document.createElement("td");
+Coluna1.textContent = r [1];
+var Coluna2 = document.createElement("td");
+Coluna2.textContent = r [2];
+var Coluna3 = document.createElement("td");
+Coluna3.textContent = r [3];
+var Coluna4 = document.createElement("td");
+Coluna4.textContent = r [4];
+var Coluna5 = document.createElement("td");
+Coluna5.textContent = r [5];
+var Coluna6 = document.createElement("td");
+Coluna6.textContent = r [6];
+var Coluna7 = document.createElement("td");
+Coluna7.textContent = r [7];
+var Coluna8 = document.createElement("td");
+Coluna8.textContent = r [8];
+var Coluna9 = document.createElement("td");
+Coluna9.textContent = r [9];
+var Coluna10 = document.createElement("td");
+Coluna10.textContent = r [10];
+var Coluna11 = document.createElement("td");
+Coluna11.textContent = r [11];
+var Coluna12 = document.createElement("td");
+Coluna12.textContent = r [12];
+var Coluna13 = document.createElement("td");
+Coluna13.textContent = r [13];
+var Coluna14 = document.createElement("td");
+Coluna14.textContent = r [14];
+var Coluna15 = document.createElement("td");
+Coluna15.textContent = r [15];
+var Coluna16 = document.createElement("td");
+Coluna16.textContent = r [16];
+var Coluna17 = document.createElement("td");
+Coluna17.textContent = r [17];
+var Coluna18 = document.createElement("td");
+Coluna18.textContent = r [18];
+var Coluna19 = document.createElement("td");
+Coluna19.textContent = r [19];
+var Coluna20 = document.createElement("td");
+Coluna20.textContent = r [20];
+var Coluna21 = document.createElement("td");
+Coluna21.textContent = r [21];
+var Coluna22 = document.createElement("td");
+Coluna22.textContent = r [22];
+var Coluna23 = document.createElement("td");
+Coluna23.textContent = r [23];
+var Coluna24 = document.createElement("td");
+Coluna24.textContent = r [24];
+var Coluna25 = document.createElement("td");
+Coluna25.textContent = r [25];
+var Coluna26 = document.createElement("td");
+Coluna26.textContent = r [26];
+var Coluna27 = document.createElement("td");
+Coluna27.textContent = r [27];
+var Coluna28 = document.createElement("td");
+Coluna28.textContent = r [28];
+var Coluna29 = document.createElement("td");
+Coluna29.textContent = r [29];
+var Coluna30 = document.createElement("td");
+Coluna30.textContent = r [30];
+var Coluna31 = document.createElement("td");
+Coluna31.textContent = r [31];
+var Coluna32 = document.createElement("td");
+Coluna32.textContent = r [32];
+var Coluna33 = document.createElement("td");
+Coluna33.textContent = r [33];
+var Coluna34 = document.createElement("td");
+Coluna34.textContent = r [34];
+var Coluna35 = document.createElement("td");
+Coluna35.textContent = r [35];
+var Coluna36 = document.createElement("td");
+Coluna36.textContent = r [36];
+var Coluna37 = document.createElement("td");
+Coluna37.textContent = r [37];
+var Coluna38 = document.createElement("td");
+Coluna38.textContent = r [38];
+var Coluna39 = document.createElement("td");
+Coluna39.textContent = r [39];
+var Coluna40 = document.createElement("td");
+Coluna40.textContent = r [40];
+var Coluna41 = document.createElement("td");
+Coluna41.textContent = r [41];
+
+
+Linha.appendChild(Coluna1);
+Linha.appendChild(Coluna2);
+Linha.appendChild(Coluna3);
+Linha.appendChild(Coluna4);
+Linha.appendChild(Coluna5);
+Linha.appendChild(Coluna6);
+Linha.appendChild(Coluna7);
+Linha.appendChild(Coluna8);
+Linha.appendChild(Coluna9);
+Linha.appendChild(Coluna10);
+Linha.appendChild(Coluna11);
+Linha.appendChild(Coluna12);
+Linha.appendChild(Coluna13);
+Linha.appendChild(Coluna14);
+Linha.appendChild(Coluna15);
+Linha.appendChild(Coluna16);
+Linha.appendChild(Coluna17);
+Linha.appendChild(Coluna18);
+Linha.appendChild(Coluna19);
+Linha.appendChild(Coluna20);
+Linha.appendChild(Coluna21);
+Linha.appendChild(Coluna22);
+Linha.appendChild(Coluna23);
+Linha.appendChild(Coluna24);
+Linha.appendChild(Coluna25);
+Linha.appendChild(Coluna26);
+Linha.appendChild(Coluna27);
+Linha.appendChild(Coluna28);
+Linha.appendChild(Coluna29);
+Linha.appendChild(Coluna30);
+Linha.appendChild(Coluna31);
+Linha.appendChild(Coluna32);
+Linha.appendChild(Coluna33);
+Linha.appendChild(Coluna34);
+Linha.appendChild(Coluna35);
+Linha.appendChild(Coluna36);
+Linha.appendChild(Coluna37);
+Linha.appendChild(Coluna38);
+Linha.appendChild(Coluna39);
+Linha.appendChild(Coluna40);
+Linha.appendChild(Coluna41);
+
+
+
+
+
+CorpoTabela.appendChild(Linha);
+
+});
+
+
+}
+
+
+document.getElementById("Busca").addEventListener("input", PesquisarCliente);
+
+
+function PesquisarCliente(){
+
+var Coluna = "0";// coluna nome
+var Filtrar, Tabela, tr, td, th, i;
+
+Filtrar = document.getElementById("Busca");
+Filtrar = Filtrar.value.toUpperCase();
+
+Tabela = document.getElementById("Tab");
+tr = Tabela.getElementsByTagName("tr");
+th = Tabela.getElementsByTagName("th");
+
+for ( i = 0; i <tr.length; i++){
+
+td = tr[i].getElementsByTagName("td")[Coluna];
+
+if (td){
+
+if (td.innerHTML.toUpperCase().indexOf(Filtrar) > -1){
+
+tr[i].style.display = "";
+
+}else{
+
+tr[i].style.display = "none";
+
+      }
+
+    }
+   }
+
+}
+
+
+
+document.getElementById("Vendedor").addEventListener("input", PesquisarVendedor);
+
+
+function PesquisarVendedor(){
+
+var Coluna = "1";// coluna que filtra telefone
+
+var Filtrar, Tabela, tr, td, th, i;
+
+Filtrar = document.getElementById("Vendedor");
+Filtrar = Filtrar.value.toUpperCase();
+
+Tabela = document.getElementById("Tab");
+tr = Tabela.getElementsByTagName("tr");
+th = Tabela.getElementsByTagName("th");
+
+for ( i = 0; i <tr.length; i++){
+
+td = tr[i].getElementsByTagName("td")[Coluna];
+
+if (td){
+
+if (td.innerHTML.toUpperCase().indexOf(Filtrar) > -1){
+
+//tr[i].style.display = "";
+
+}else{
+
+tr[i].style.display = "none";
+
+      }
+
+    }
+    
+   }
+   
+   
+   if (Filtrar == ""){   
+   PesquisarCliente();   
+   }
+   
+
+}
+
+  </script>
+  
+  <script>
+function moeda(a, e, r, t) {
+            let n = ""
+              , h = j = 0
+              , u = tamanho2 = 0
+              , l = ajd2 = ""
+              , o = window.Event ? t.which : t.keyCode;
+              a.value = a.value.replace('R$ ','');            
+            if (n = String.fromCharCode(o),
+            -1 == "0123456789".indexOf(n))
+                return !1;
+            for (u = a.value.replace('R$ ','').length,
+            h = 0; h < u && ("0" == a.value.charAt(h) || a.value.charAt(h) == r); h++)
+                ;
+            for (l = ""; h < u; h++)
+                -1 != "0123456789".indexOf(a.value.charAt(h)) && (l += a.value.charAt(h));
+            if (l += n,
+            0 == (u = l.length) && (a.value = ""),
+            1 == u && (a.value = "R$ 0" + r + "0" + l),
+            2 == u && (a.value = "R$ 0" + r + l),
+            u > 2) {
+                for (ajd2 = "",
+                j = 0,
+                h = u - 3; h >= 0; h--)
+                    3 == j && (ajd2 += e,
+                    j = 0),
+                    ajd2 += l.charAt(h),
+                    j++;
+                for (a.value = "R$ ",
+                tamanho2 = ajd2.length,
+                h = tamanho2 - 1; h >= 0; h--)
+                    a.value += ajd2.charAt(h);
+                a.value += r + l.substr(u - 2, u)
+            }
+            return !1
+        }
+</script>
+
+<script>
+    document.getElementById('search_cliente').addEventListener('click', function() {
+      const nome = document.getElementById('search_nome').value;
+      fetchFromSheet(nome).then(cliente => {
+        if (cliente) {
+          console.log('Cliente encontrado:', cliente);
+          updateChart(cliente);
+          document.getElementById('cliente_label').innerText = `Cliente: ${cliente.nome || 'Nome não disponível'}`;
+        } else {
+          alert('Cliente não encontrado!');
+          document.getElementById('cliente_label').innerText = '';
+        }
+      }).catch(error => {
+        console.error('Erro ao buscar cliente:', error);
+      });
+    });
+
+    function fetchFromSheet(nome) {
+      return new Promise((resolve, reject) => {
+        google.script.run.withSuccessHandler(resolve).withFailureHandler(reject).fetchCliente(nome);
+      });
+    }
+
+    function updateChart(cliente) {
+      const ctx = document.getElementById('pieChart').getContext('2d');
+      const data = [
+        cliente.academia, cliente.trabalho_formal, cliente.trabalho_informal, cliente.home_office,
+        cliente.almoco_familia, cliente.viagem, cliente.balada, cliente.sair_pra_jantar,
+        cliente.eventos_corporativos, cliente.praia_clube
+      ];
+
+      console.log('Dados do gráfico:', data);
+
+      // Verificar se todos os valores são números
+      const dataNumbers = data.map(value => {
+        const num = Number(value);
+        if (isNaN(num)) {
+          console.error(`Valor inválido para cálculo: ${value}`);
+          return 0;
+        }
+        return num;
+      });
+
+      console.log('Dados numéricos do gráfico:', dataNumbers);
+
+      const total = dataNumbers.reduce((acc, value) => acc + value, 0);
+
+      if (total === 0) {
+        console.warn('Total dos valores é 0, não é possível calcular percentuais');
+        return;
+      }
+
+      const percentages = dataNumbers.map(value => (value / total) * 100);
+
+      console.log('Percentuais do gráfico:', percentages);
+
+      new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: ['Academia', 'Trabalho Formal', 'Trabalho Informal', 'Home Office', 'Almoço em Família', 'Viagem', 'Balada', 'Sair para Jantar', 'Eventos Corporativos', 'Praia/Clube'],
+          datasets: [{
+            data: percentages,
+            backgroundColor: [
+              'rgb(255, 99, 132)',
+              'rgb(255, 159, 64)',
+              'rgb(255, 205, 86)',
+              'rgb(75, 192, 192)',
+              'rgb(54, 162, 235)',
+              'rgb(153, 102, 255)',
+              'rgb(201, 203, 207)',
+              'rgb(255, 99, 132)',
+              'rgb(255, 159, 64)',
+              'rgb(255, 205, 86)'
+            ],
+            hoverOffset: 4
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              display: percentages.some(value => value > 0),
+              position: 'right',
+            },
+            tooltip: {
+              callbacks: {
+                label: function(tooltipItem) {
+                  const label = tooltipItem.label || '';
+                  const value = tooltipItem.raw.toFixed(2);
+                  return `${label}: ${value}%`;
+                }
+              }
+            }
+          }
+        }
+      });
+    }
+  </script>
+
+  <!-- tabela-gs.gs -->
+<script>
+// Função para carregar a lista de clientes
+function loadClients() {
+  google.script.run.withSuccessHandler(renderClientsTable).fetchClientesFromSheet();
+}
+
+
+// Função para carregar e renderizar a tabela de clientes
+function renderClientsTable(clientes) {
+  console.log('Clientes recebidos:', clientes); // Verificar se os clientes estão sendo recebidos corretamente
+
+  const corpoTabela = document.getElementById('CorpoTabela');
+  corpoTabela.innerHTML = ''; // Limpar o conteúdo atual da tabela
+
+  clientes.forEach(cliente => {
+    const row = document.createElement('tr');
+
+    // Criar uma célula para cada propriedade do cliente
+    Object.keys(cliente).forEach(key => {
+      console.log('Propriedade:', key, 'Valor:', cliente[key]); // Verificar cada propriedade e seu valor
+      const cell = document.createElement('td');
+      cell.textContent = cliente[key];
+      row.appendChild(cell);
+    });
+
+    corpoTabela.appendChild(row);
+  });
+}
+
+    // Adicionar event listener para os botões de editar cliente
+const btnsEditarCliente = document.querySelectorAll('.btnEditarCliente');
+const clientNames = [];
+
+btnsEditarCliente.forEach(btn => {
+  btn.addEventListener('click', () => {
+    const clientName = btn.getAttribute('data-id');
+    clientNames.push(clientName); // Armazenar o nome do cliente no array
+    console.log('Cliente selecionado:', clientName);
+    openEditModal(clientName);
+  });
+});
+
+// Função para abrir o modal de edição de cliente
+function openEditModal(clientNome) {
+    // Obter o modal de edição de cliente pelo ID
+    function openEditModal() {
+  const clientName = clientNames.pop(); // Obter o último nome do cliente do array
+  console.log('Abrindo modal de edição para o cliente:', clientName); // Adiciona um console.log para verificar o cliente cujo modal está sendo aberto
+    // Aqui você deve implementar a lógica para preencher o formulário do modal com os dados do cliente selecionado
+    // ...
+    // Abrir o modal
+    const instance = M.Modal.getInstance(modal);
+    instance.open();
+}
+
+// Event listener para carregar e renderizar a tabela de clientes quando a página carregar
+document.addEventListener('click', function(event) {
+  if (event.target.classList.contains('btnEditarCliente')) {
+    const btn = event.target; // Captura o botão clicado
+    const clientNome = btn.getAttribute('data-id');
+    console.log('Cliente selecionado:', clientNome); // Verificar o cliente selecionado
+    openEditModal(clientNome);
+  }
+});
+
+
+</script>
+
+
+
+</body>
+
+</html>
+
+
+
+codigo.gs
+// Função para carregar o HTML
+
+
+function doGet() {
+  return HtmlService.createHtmlOutputFromFile('index')
+      .setSandboxMode(HtmlService.SandboxMode.IFRAME);
+}
+
+function Chamar(Arquivo) {
+  return HtmlService.createHtmlOutputFromFile(Arquivo).getContent();
+}
+
+// Função para salvar dados na planilha
+function salvarDados(dados) {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Clientes');
+  sheet.appendRow([
+    dados.id,
+    dados.nome,
+    dados.telefone,
+    dados.idade,
+    dados.sexo,
+    dados.data_primeiro_atendimento,
+    dados.endereco,
+    dados.instagram,
+    dados.cartela_cores,
+    dados.estilo1,
+    dados.estilo2,
+    dados.estilo3,
+    dados.biotipo,
+    dados.formato_rosto,
+    dados.altura,
+    dados.peso,
+    dados.calcado,
+    dados.medida_ombro,
+    dados.medida_cintura,
+    dados.medida_quadril,
+    dados.medida_rosto,
+    dados.medida_tronco,
+    dados.medida_perna,
+    dados.pescoço,
+    dados.busto,
+    dados.ombros,
+    dados.peso_visual,
+    dados.servico,
+    dados.valor,
+    dados.forma_pagamento,
+    dados.data_pagamento,
+    dados.observacoes,
+    dados.academia,
+    dados.trabalho_formal,
+    dados.trabalho_informal,
+    dados.home_office,
+    dados.almoco_familia,
+    dados.viagem,
+    dados.balada,
+    dados.sair_pra_jantar,
+    dados.eventos_corporativos,
+    dados.praia_clube
+    // Adicione os outros campos conforme necessário
+  ]);
+}
+
+// Função para recuperar dados da planilha
+function getDataFromSheet() {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Clientes');
+  var range = sheet.getRange('B:AP' + sheet.getLastRow()); // Ajuste o intervalo conforme necessário
+  var data = range.getValues();
+  return data;
+}
+
+function fetchClientesFromSheet() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet(); // Obter a planilha ativa
+  const sheet = ss.getSheetByName('Clientes'); // Obter a aba 'Cliente'
+  const range = sheet.getDataRange(); // Obter a faixa de dados
+  const values = range.getValues(); // Obter os valores das células
+
+  // Mapear os valores para objetos de cliente
+  const clientes = values.map(row => {
+    const cliente = {
+      id: row[0], // Supondo que a primeira coluna contenha os IDs dos clientes
+      nome: row[1], // Supondo que a segunda coluna contenha os nomes dos clientes
+      telefone: row[2], // Supondo que a terceira coluna contenha os telefones dos clientes
+      // Adicione mais propriedades conforme necessário
+    };
+    console.log('Dados do cliente:', cliente); // Imprimir os dados do cliente
+    return cliente;
+  });
+
+  return clientes; // Retornar os dados dos clientes
+}
+
+
+function fetchCliente(nome) {
+  var planilha = SpreadsheetApp.getActiveSpreadsheet();
+  var abaClientes = planilha.getSheetByName('Clientes');
+  
+  // Busca pelo nome na coluna B (assumindo que o nome está na segunda coluna)
+  var dadosCliente = abaClientes.getRange('B:AP').getValues(); // Altere 'AP' para a última coluna que contém dados
+
+  // Percorre os dados para encontrar o cliente com o nome fornecido
+  for (var i = 1; i < dadosCliente.length; i++) { // Começamos em 1 para pular o cabeçalho
+    if (dadosCliente[i][0] === nome) {
+      // Retorna um objeto com os dados do cliente
+      var cliente = {
+        nome: dadosCliente[i][0],  
+        academia: dadosCliente[i][32], // Assumindo que a coluna AG seja a coluna 33 (começa em 0)
+        trabalho_formal: dadosCliente[i][33], // Assumindo que a coluna AH seja a coluna 34
+        trabalho_informal: dadosCliente[i][34], // Assumindo que a coluna AI seja a coluna 35
+        home_office: dadosCliente[i][35], // Assumindo que a coluna AJ seja a coluna 36
+        almoco_familia: dadosCliente[i][36], // Assumindo que a coluna A seja a coluna 37
+        viagem: dadosCliente[i][37], // Assumindo que a coluna AL seja a coluna 38
+        balada: dadosCliente[i][38], // Assumindo que a coluna AM seja a coluna 39
+        sair_pra_jantar: dadosCliente[i][39], // Assumindo que a coluna AN seja a coluna 40
+        eventos_corporativos: dadosCliente[i][40], // Assumindo que a coluna AO seja a coluna 41
+        praia_clube: dadosCliente[i][41] // Assumindo que a coluna AP seja a coluna 42
+        // Adicione outras colunas conforme necessário
+      };
+
+      console.log('Dados do cliente encontrados:', cliente);
+      return cliente;
+    }
+  }
+  
+  // Retorna null se o cliente não for encontrado
+  console.log('Cliente não encontrado.');
+  return null;
+}
+
+
+// Carregar clientes da planilha
+function loadClients() {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Clientes');
+  const data = sheet.getDataRange().getValues();
+  const headers = data.shift();
+  
+  const clients = data.map(row => {
+    let client = {};
+    headers.forEach((header, i) => {
+      client[header] = row[i];
+    });
+    return client;
+  });
+
+  return clients;
+}
+
+// Atualizar cliente na planilha
+function updateCliente(updatedClient) {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Clientes');
+  const data = sheet.getDataRange().getValues();
+  const headers = data.shift();
+  
+  const rowIndex = data.findIndex(row => row[0] == updatedClient.Nome); // Assuming 'Nome' is the unique identifier
+  
+  if (rowIndex > -1) {
+    headers.forEach((header, i) => {
+      sheet.getRange(rowIndex + 2, i + 1).setValue(updatedClient[header]);
+    });
+    return 'Cliente atualizado com sucesso';
+  } else {
+    return 'Cliente não encontrado';
+  }
+}
+
+// Função para buscar cliente por nome
+function getClienteByName(nome) {
+  const clients = loadClients();
+  return clients.find(client => client.Nome == nome);
+}
+
+
+
+// Função para carregar clientes da planilha "Clientes"
+function loadClients() {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Clientes');
+  const data = sheet.getDataRange().getValues();
+  const headers = data.shift();
+  const clients = data.map(row => {
+    const client = {};
+    headers.forEach((header, index) => {
+      client[header] = row[index];
+    });
+    return client;
+  });
+  return clients;
+}
+
+// Função para buscar cliente por nome
+function getClientByNome(nome) {
+  const clients = loadClients();
+  return clients.find(client => client.Nome === nome);
+}
+
+// Função para atualizar cliente na planilha
+function updateClient(cliente) {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Clientes');
+  const data = sheet.getDataRange().getValues();
+  const headers = data.shift();
+  const rowIndex = data.findIndex(row => row[0] === cliente.Nome);
+
+  if (rowIndex !== -1) {
+    const row = headers.map(header => cliente[header]);
+    sheet.getRange(rowIndex + 2, 1, 1, row.length).setValues([row]);
+    return 'Cliente atualizado com sucesso';
+  } else {
+    return 'Cliente não encontrado';
+  }
+}
+
+
